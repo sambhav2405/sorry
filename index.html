@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Friendship Day Aayushi - An Apology</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#ff6b9d',secondary:'#a8e6cf'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Dancing+Script:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+    animation: fadeIn 1s ease-out forwards;
+}
+@keyframes pulse-heart {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 107, 157, 0.7); }
+    50% { transform: scale(1.1); box-shadow: 0 0 0 20px rgba(255, 107, 157, 0); }
+}
+.pulse-heart-animation {
+    animation: pulse-heart 2s infinite;
+}
+body {
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    background-color: #fdf2f8; /* Soft pink background */
+}
+.hero-bg {
+    background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+    position: relative;
+    overflow: hidden;
+}
+.sorry-text-animation {
+    animation: fadeIn 2s ease-in-out;
+}
+.memory-tree {
+    position: relative;
+    background: linear-gradient(45deg, #f093fb 0%, #f5576c 100%);
+}
+.photo-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: translateY(50px);
+}
+.photo-card.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
+.photo-card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+.voice-note-card, .video-card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    opacity: 0;
+    transform: scale(0.9);
+}
+.voice-note-card.animate, .video-card.animate {
+    opacity: 1;
+    transform: scale(1);
+}
+.voice-note-card:hover, .video-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.video-card video {
+    border-radius: 1rem;
+    margin-bottom: 1rem;
+}
+.play-button {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #ff6b9d, #ff89b3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 107, 157, 0.5);
+}
+.play-button:hover {
+    transform: scale(1.1);
+}
+.social-icon {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.social-icon:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* Forgiveness Modal & Button Styles */
+.forgive-btn {
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
+}
+.forgive-btn:hover {
+    transform: translateY(-5px) rotateX(10deg);
+}
+.heart-rain {
+    position: fixed;
+    top: -50px; /* Start above the screen */
+    font-size: 2rem;
+    color: #ff6b9d;
+    pointer-events: none;
+    animation: fall linear forwards;
+    z-index: 9999;
+}
+@keyframes fall {
+    to {
+        transform: translateY(105vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+<body class="bg-gradient-to-br from-pink-50 to-purple-100">
+
+<!-- Forgiveness Modal -->
+<div id="forgivenessModalOverlay" class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40 hidden"></div>
+<div id="forgivenessModal" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-8 rounded-2xl text-center shadow-2xl z-50 hidden w-11/12 max-w-md transition-transform duration-300 scale-95">
+    <!-- Initial Question State -->
+    <div id="modalQuestion">
+        <i class="ri-question-line text-6xl text-primary mb-4"></i>
+        <h3 class="text-3xl font-['Dancing_Script'] text-gray-800 mb-4">Kya aapne mujhe maaf kar diya?</h3>
+        <p class="text-gray-600 mb-8">Please...</p>
+        <div class="flex justify-center gap-4">
+            <button class="forgive-btn bg-primary text-white px-8 py-3 font-semibold rounded-button hover:bg-opacity-90 transition-all">
+                Ji ha
+            </button>
+            <button class="forgive-btn bg-secondary text-gray-800 px-8 py-3 font-semibold rounded-button hover:bg-opacity-90 transition-all">
+                Yes baby
+            </button>
+        </div>
+    </div>
+    <!-- Thank You State -->
+    <div id="modalThanks" class="hidden">
+         <i class="ri-heart-fill text-6xl text-red-500 animate-ping absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-75" style="transform-origin: center;"></i>
+         <i class="ri-heart-fill text-6xl text-red-500 relative"></i>
+        <h3 class="text-3xl font-['Dancing_Script'] text-gray-800 my-4">Thank You So Much!</h3>
+        <p class="text-gray-600 mb-8">You made my day! ❤️</p>
+         <button id="closeModalBtn" class="bg-gray-200 text-gray-700 px-6 py-2 rounded-button">Close</button>
+    </div>
+</div>
+
+<!-- Hero Section -->
+<section class="hero-bg min-h-screen flex items-center justify-center relative">
+    <div class="container mx-auto px-4 text-center text-white relative z-10">
+        <h1 class="text-6xl md:text-8xl font-['Dancing_Script'] font-bold mb-4 sorry-text-animation">
+            I'm So Sorry, Aayushi
+        </h1>
+        <p class="text-xl md:text-2xl font-light mb-8 opacity-90 fade-in" style="animation-delay: 0.5s;">
+            I know I messed up by not wishing you on Friendship Day.
+        </p>
+        <div class="fade-in" style="animation-delay: 1s;">
+            <i class="ri-heart-pulse-line text-6xl text-white pulse-heart-animation"></i>
+        </div>
+        <p class="text-lg italic opacity-80 mt-8 fade-in" style="animation-delay: 1.5s;">
+            "Friendship isn't about who you've known the longest. It's about who walked into your life, said 'I'm here for you,' and proved it."
+        </p>
+    </div>
+</section>
+
+<!-- 1. Song Video Section -->
+<section class="min-h-screen bg-gradient-to-br from-purple-100 to-pink-100 relative flex items-center justify-center py-20">
+    <div class="container mx-auto px-4 text-center relative">
+        <div class="max-w-4xl mx-auto bg-white bg-opacity-90 backdrop-blur-lg rounded-2xl p-8 shadow-xl">
+            <h2 class="text-5xl font-['Dancing_Script'] text-gray-800 mb-8 animate-pulse">
+                A Song For You
+            </h2>
+            <div class="relative rounded-2xl overflow-hidden mb-8 shadow-lg">
+                <video id="songVideo" class="w-full rounded-2xl" controls autoplay>
+                    <source src="Chalo Jaane Do  Female Cover  Bhootnath  Juhi Chawla  Amitabh Bachchan  Shahrukh Khan (720p).mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            <p class="text-2xl font-['Dancing_Script'] text-gray-700 mb-4">
+                "Words can't express how sorry I am. I hope this can."
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- 2. Side-by-Side Videos Section -->
+<section class="py-20 bg-gradient-to-br from-pink-100 to-purple-200">
+    <div class="container mx-auto px-4">
+        <h2 class="text-5xl font-['Dancing_Script'] text-center text-gray-800 mb-16 font-bold">
+            From My Heart, in Video
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+            <!-- Apology Video Card -->
+            <div class="video-card">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">My Sincere Apology</h3>
+                <video class="w-full" controls>
+                    <source src="video2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p class="text-gray-600 italic">"I am truly sorry from the bottom of my heart."</p>
+            </div>
+            <!-- Life Together Video Card -->
+            <div class="video-card" style="transition-delay: 0.2s;">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Our Life Together</h3>
+                <video class="w-full" controls>
+                    <source src="our_life2.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <p class="text-gray-600 italic">"A collection of moments that I will cherish forever."</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Voice Notes Section -->
+<section class="py-20 bg-gradient-to-br from-pink-100 to-purple-200">
+    <div class="container mx-auto px-4">
+        <h2 class="text-5xl font-['Dancing_Script'] text-center text-gray-800 mb-16 font-bold">
+            Listen to My Heart
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+            <!-- Voice Note 1 -->
+            <div class="voice-note-card">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">My First Apology</h3>
+                <div class="play-button mx-auto mb-4" onclick="playAudio('aplogy.mp3')">
+                    <i class="ri-play-fill"></i>
+                </div>
+                <p class="text-gray-600 italic">"I was so wrong, and I miss my best friend."</p>
+            </div>
+            <!-- Voice Note 2 -->
+            <div class="voice-note-card" style="transition-delay: 0.2s;">
+                <h3 class="text-2xl font-semibold text-gray-800 mb-4">Remembering Our Moments</h3>
+                 <div class="play-button mx-auto mb-4" onclick="playAudio('our_memory.mp3')">
+                    <i class="ri-play-fill"></i>
+                </div>
+                <p class="text-gray-600 italic">"Our friendship means the world to me."</p>
+            </div>
+        </div>
+        <audio id="audioPlayer"></audio>
+    </div>
+</section>
+
+
+<!-- Memory Tree Section -->
+<section class="memory-tree py-20 relative">
+    <div class="container mx-auto px-4">
+        <h2 class="text-5xl font-['Dancing_Script'] text-center text-white mb-16 font-bold">
+            Our Unforgettable Memories
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Replace with your images -->
+            <div class="photo-card">
+                <div class="w-full h-64 rounded-xl mb-4 overflow-hidden">
+                    <img src="5.jpg" alt="Memory 1" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">The Good Old Days</h3>
+                <p class="text-gray-600 italic">"Every moment with you is a treasure."</p>
+            </div>
+            <div class="photo-card" style="transition-delay: 0.1s;">
+                <div class="w-full h-64 rounded-xl mb-4 overflow-hidden">
+                     <img src="6.jpg" alt="Memory 2" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Endless Laughter</h3>
+                <p class="text-gray-600 italic">"Your smile is my favorite thing in the world."</p>
+            </div>
+            <div class="photo-card" style="transition-delay: 0.2s;">
+                <div class="w-full h-64 rounded-xl mb-4 overflow-hidden">
+                    <img src="7.jpg" alt="Memory 3" class="w-full h-full object-cover">
+                </div>
+                <h3 class="text-xl font-semibold text-gray-800 mb-2">Always Celebrating</h3>
+                <p class="text-gray-600 italic">"Life is a party with you by my side."</p>
+            </div>
+        </div>
+        <div class="text-center mt-16">
+            <div class="bg-white bg-opacity-20 backdrop-blur-lg rounded-2xl p-8 max-w-4xl mx-auto">
+                <h3 class="text-3xl font-['Dancing_Script'] text-white mb-4">A Shayari for Aayushi</h3>
+                <p class="text-xl text-white leading-relaxed italic">
+                    "Galti hui mujhse, main maanta hoon,<br>
+                    Par teri dosti ko sabse upar jaanta hoon.<br>
+                    Friendship day bhool gaya, maaf kar de yaar,<br>
+                    Tere bina meri zindagi hai bekaar."
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="py-20 bg-gradient-to-r from-primary to-secondary">
+    <div class="container mx-auto px-4">
+        <h2 class="text-5xl font-['Dancing_Script'] text-center text-white mb-16 font-bold">
+            Please Talk to Me
+        </h2>
+        <div class="text-center mb-12">
+            <p class="text-xl text-white opacity-90 mb-8">
+                I'm waiting for your message, Aayushi.
+            </p>
+        </div>
+        <div class="flex flex-wrap justify-center gap-8">
+             <a href="https://www.instagram.com/jain_sambhav_24" target="_blank" class="social-icon bg-white bg-opacity-20 backdrop-blur-lg rounded-2xl p-6 flex flex-col items-center text-white hover:bg-opacity-30 transition-all">
+                <div class="w-16 h-16 flex items-center justify-center mb-4">
+                    <i class="ri-instagram-fill text-4xl"></i>
+                </div>
+                <span class="text-lg font-semibold">Instagram</span>
+            </a>
+            <a href="https://wa.me/7412063543" class="social-icon bg-white bg-opacity-20 backdrop-blur-lg rounded-2xl p-6 flex flex-col items-center text-white hover:bg-opacity-30 transition-all">
+                <div class="w-16 h-16 flex items-center justify-center mb-4">
+                    <i class="ri-whatsapp-fill text-4xl"></i>
+                </div>
+                <span class="text-lg font-semibold">WhatsApp</span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-800 text-white py-12">
+    <div class="container mx-auto px-4 text-center">
+        <div class="mb-8">
+            <h3 class="text-3xl font-['Dancing_Script'] mb-4">Forgive Me, Aayushi</h3>
+            <p class="text-gray-300 max-w-2xl mx-auto">
+                This website is a small way to show you how much I regret my mistake. Our friendship is too precious to lose.
+            </p>
+        </div>
+        <div class="border-t border-gray-700 pt-8">
+            <p class="text-gray-400">
+                Made with a heavy heart & lots of hope ❤️
+            </p>
+        </div>
+    </div>
+</footer>
+
+<!-- Sticky Forgiveness Button -->
+<button id="stickyForgiveBtn" class="fixed bottom-8 right-8 bg-primary text-white w-20 h-20 rounded-full flex items-center justify-center shadow-lg z-30 pulse-heart-animation">
+    <i class="ri-mail-unread-fill text-4xl"></i>
+</button>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Intersection Observer for animations
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.photo-card, .voice-note-card, .video-card').forEach(el => {
+        observer.observe(el);
+    });
+
+    // Forgiveness Modal Logic
+    const stickyBtn = document.getElementById('stickyForgiveBtn');
+    const modalOverlay = document.getElementById('forgivenessModalOverlay');
+    const modal = document.getElementById('forgivenessModal');
+    const forgiveBtns = document.querySelectorAll('.forgive-btn');
+    const modalQuestion = document.getElementById('modalQuestion');
+    const modalThanks = document.getElementById('modalThanks');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+
+    stickyBtn.addEventListener('click', () => {
+        modalOverlay.classList.remove('hidden');
+        modal.classList.remove('hidden');
+        setTimeout(() => modal.classList.add('scale-100'), 10); // For transition
+    });
+
+    const closeTheModal = () => {
+        modal.classList.remove('scale-100');
+        setTimeout(() => {
+            modalOverlay.classList.add('hidden');
+            modal.classList.add('hidden');
+        }, 300);
+    };
+
+    modalOverlay.addEventListener('click', closeTheModal);
+    closeModalBtn.addEventListener('click', closeTheModal);
+
+    forgiveBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            modalQuestion.classList.add('hidden');
+            modalThanks.classList.remove('hidden');
+            startHeartRain();
+        });
+    });
+
+    function startHeartRain() {
+        const container = document.body;
+        for (let i = 0; i < 50; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('i');
+                heart.className = 'ri-heart-fill heart-rain';
+                heart.style.left = `${Math.random() * 100}vw`;
+                const duration = Math.random() * 2 + 3; // 3 to 5 seconds
+                heart.style.animationDuration = `${duration}s`;
+                const size = Math.random() * 24 + 12; // 12px to 36px
+                heart.style.fontSize = `${size}px`;
+                container.appendChild(heart);
+
+                // Clean up the DOM after animation ends
+                setTimeout(() => {
+                    heart.remove();
+                }, duration * 1000);
+
+            }, i * 100); // Stagger the creation of hearts
+        }
+    }
+});
+
+// Audio Player Logic
+const audioPlayer = document.getElementById('audioPlayer');
+let currentPlayButton = null;
+
+function playAudio(src) {
+    const isPlaying = audioPlayer.src.endsWith(src) && !audioPlayer.paused;
+
+    // Reset all buttons first
+    document.querySelectorAll('.play-button').forEach(b => b.innerHTML = '<i class="ri-play-fill"></i>');
+
+    if (isPlaying) {
+        audioPlayer.pause();
+        currentPlayButton = null;
+    } else {
+        audioPlayer.src = src;
+        audioPlayer.play();
+        const allPlayButtons = document.querySelectorAll('.play-button');
+        allPlayButtons.forEach(button => {
+            const buttonSrc = button.getAttribute('onclick').replace("playAudio('", "").replace("')", "");
+            if(buttonSrc === src){
+                currentPlayButton = button;
+                button.innerHTML = '<i class="ri-pause-fill"></i>';
+            }
+        });
+    }
+}
+
+audioPlayer.onended = () => {
+    if(currentPlayButton) {
+        currentPlayButton.innerHTML = '<i class="ri-play-fill"></i>';
+        currentPlayButton = null;
+    }
+};
+</script>
+
+</body>
+</html>
